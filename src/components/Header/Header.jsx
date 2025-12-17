@@ -1,14 +1,25 @@
 import "./Header.css";
+import logo from "../../assets/logo.svg";
+import avatar from "../../assets/avatarTrue.png";
 
 function Header() {
+  const currentDate = new Date().toLocaleString("default", {
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <header className="header">
-      <img src="" alt="" className="header__logo" />
-      <p className="header__date-location">Date, location</p>
-      <div className="header__user-container">
-        <button className="header__add-clothes-btn">+ Add clothes</button>
-        <p className="header__username">Name</p>
-        <img src="" alt="" className="header__avatar" />
+      <div className="header__container">
+        <div className="header__container_logo-date">
+          <img className="header__logo" src={logo} alt="WTWR logo"></img>
+          <p className="header__date-location">{currentDate}</p>
+        </div>
+        <div className="header__container_profile-details">
+          <button className="header__button">+ Add Clothes</button>
+          <p className="header__name">Terrence Tegegne</p>
+          <img src={avatar} alt="profile picture" className="header__avatar" />
+        </div>
       </div>
     </header>
   );

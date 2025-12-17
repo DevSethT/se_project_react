@@ -1,8 +1,18 @@
 .app {
-  background-color: #f3f3f3;
+  font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  color: black;
+  background-color: rgba(243, 243, 243, 1);
+  min-height: 100vh;
 }
 
 .app__content {
   max-width: 1360px;
   margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
