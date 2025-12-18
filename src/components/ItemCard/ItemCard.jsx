@@ -1,13 +1,12 @@
 import "./ItemCard.css";
-import tshirt from "../../assets";
 
-function ItemCard() {
+function ItemCard({ item }) {
   return (
     <>
-      <section className="item-card">
-        <p className="item-card__title">T-Shirt</p>
-        <img src={tshirt} alt="" className="item-card__image" />
-      </section>
+      <li className="item-card">
+        <p className="item-card__title">{item.name}</p>
+        <img src={item.link} alt={item.name} className="item-card__image" />
+      </li>
     </>
   );
 }

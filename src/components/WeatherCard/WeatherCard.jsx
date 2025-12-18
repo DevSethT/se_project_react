@@ -1,4 +1,4 @@
-import "WeatherCard.css";
+import "./WeatherCard.css";
 import cloudy from "../../assets/weathercardimages/cloudy.webp";
 
 function WeatherCard() {
