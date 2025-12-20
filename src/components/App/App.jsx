@@ -4,26 +4,27 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import ModalWithForm from "../ModalWithForm/ModalwithForm";
-import { getWeather } from "../../utils/weatherAPI";
+import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { location, apiKey } from "../../utils/constants";
 // import ItemModel from "../ItemModal/ItemModal";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
-    type: "hot",
-    temp: { F: 999, C: 999 },
+    type: "",
+    temp: { F: 999 },
+    location: "",
   });
+
+  // const { isModalOpen, setIsModalOpen } = useState(false);
 
   useEffect(() => {
     getWeather(location, apiKey)
       .then((data) => {
-        if (data.main.temp >= 86) {
-          return "hot";
-        } else if (data.main.temp >= 66) {
-          return "warm";
-        } else {
-          return "cold";
-        }
+        console.log(data);
+
+        const filteredData = filterWeatherData(data);
+
+        setWeatherData(filteredData);
       })
       .catch((err) => {
         console.log(err);
@@ -33,7 +34,7 @@ function App() {
   return (
     <div className="app">
       <div className="app__content">
-        <Header />
+        <Header weatherData={weatherData} />
         <Main weatherData={weatherData} />
         <Footer />
       </div>

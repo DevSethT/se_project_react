@@ -1,10 +1,10 @@
 import "./WeatherCard.css";
 import cloudy from "../../assets/weathercardimages/cloudy.webp";
 
-function WeatherCard() {
+function WeatherCard({ weatherData }) {
   return (
     <section className="weather-card">
-      <p className="weather-card__temp">75&deg; F</p>
+      <p className="weather-card__temp">{weatherData}° F</p>
       <img src={cloudy} alt="" className="weather-card__image" />
     </section>
   );
