@@ -1,13 +1,19 @@
 import "./ItemCard.css";
 
-function ItemCard({ item }) {
+function ItemCard({ item, handleCardClick }) {
+  const onCardClick = () => {
+    handleCardClick(item);
+  };
   return (
-    <>
-      <li className="item-card">
-        <p className="item-card__title">{item.name}</p>
-        <img src={item.link} alt={item.name} className="item-card__image" />
-      </li>
-    </>
+    <li className="item-card">
+      <h2 className="item-card__title">{item.name}</h2>
+      <img
+        src={item.link}
+        alt={item.name}
+        className="item-card__image"
+        onClick={onCardClick}
+      />
+    </li>
   );
 }
 

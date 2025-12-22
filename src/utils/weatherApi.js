@@ -14,15 +14,21 @@ export const filterWeatherData = (data) => {
   result.location = data.name;
   result.temp = { F: Math.round(data.main.temp) };
   result.type = getWeatherType(result.temp.F);
+  result.condition = data.weather[0].main.toLowerCase();
+  result.isDay = isDay(data.sys, Date.now());
   return result;
 };
 
 const getWeatherType = (data) => {
-  if (data.main.temp >= 86) {
+  if (data >= 80) {
     return "hot";
-  } else if (data.main.temp >= 66) {
+  } else if (data >= 66 && data < 80) {
     return "warm";
   } else {
     return "cold";
   }
+};
+
+const isDay = ({ sunrise, sunset }, now) => {
+  return now > sunrise * 1000 && now < sunset * 1000;
 };

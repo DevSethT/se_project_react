@@ -16,7 +16,7 @@
 }
 
 .header__logo {
-  height: 32px;
+  height: 40px;
   width: 89px;
 }
 
@@ -57,4 +57,86 @@
   height: 40px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 50%;
+}
+
+.header__container_profile-details_mobile {
+  display: none;
+}
+
+.header__container_profile-details_mobile-button {
+  display: none;
+}
+
+@media screen and (max-width: 755px) {
+  .header {
+    height: 100px;
+    padding-top: 18px;
+    margin-bottom: 16px;
+  }
+
+  .header__container_logo-date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header__container_profile-details_desktop {
+    display: none;
+  }
+
+  .header__container_profile-details_mobile-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 343px;
+    background-color: white;
+    margin: 18px 16px 0 16px;
+    box-sizing: border-box;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse;
+    border-radius: 12px;
+  }
+
+  .header__container_profile-details_mobile-button {
+    display: flex;
+    background-image: url(../../assets/mobilehamburgermenu.svg);
+    height: 44px;
+    width: 44px;
+    border: none;
+    background-size: 100%;
+    background-color: transparent;
+    padding: 0;
+    align-self: flex-start;
+  }
+
+  .profile-modal__close-button {
+    background-image: url(../../assets/closebuttonmobile.svg);
+    background-color: transparent;
+    height: 20px;
+    width: 20px;
+    border: none;
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    padding: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .profile-modal__close-button:hover {
+    cursor: pointer;
+    opacity: 70%;
+  }
+
+  .header__details-mobile {
+    display: flex;
+    padding: 60px 0 0 0;
+  }
+
+  .header__name {
+    align-self: center;
+  }
+
+  .header__button {
+    padding: 24px 0 60px 0;
+  }
 }
