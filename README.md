@@ -42,5 +42,5 @@ This webpage is connected to the OpenWeatherMap API, allowing the current weathe
 
 **Final Project**
 
-- [Link to live project]()
+- [Link to live project](https://DevSethT.github.io/se_project_react)
 - Recorded overview of project: (To Be Updated)
