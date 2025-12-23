@@ -116,6 +116,7 @@ function App() {
         <Footer />
       </div>
       <ModalWithForm
+        name="add-garment"
         isOpen={activeModal === "add-garment"}
         handleModalClose={handleModalClose}
         onSubmit={onSubmit}
