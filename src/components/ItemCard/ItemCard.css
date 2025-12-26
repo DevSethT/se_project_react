@@ -33,6 +33,7 @@
   border-radius: 20px;
   transition: box-shadow 0.2s ease-in-out;
   width: 325px;
+  max-height: 325px;
 }
 
 .item-card__image:hover {

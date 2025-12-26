@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -19,7 +18,7 @@ function App() {
 
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
-  //modal open/close functions
+  // modal open/close functions
   const [selectedCard, setSelectedCard] = useState({});
 
   const [activeModal, setActiveModal] = useState("");
@@ -71,8 +70,7 @@ function App() {
     };
   }, [activeModal, handleModalClose]);
 
-  //weather api
-
+  // weather api
   useEffect(() => {
     getWeather(location, apiKey)
       .then((data) => {
@@ -84,18 +82,9 @@ function App() {
       });
   }, []);
 
-  //form validation functions
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isValid },
-    reset,
-  } = useForm({
-    mode: "onChange",
-  });
-
-  const onSubmit = () => {
-    reset();
+  // form submit
+  const onSubmit = (modal) => {
+    modal.preventDefault();
     handleModalClose();
   };
 
@@ -115,90 +104,41 @@ function App() {
         />
         <Footer />
       </div>
+
       <ModalWithForm
         name="add-garment"
         isOpen={activeModal === "add-garment"}
         handleModalClose={handleModalClose}
         onSubmit={onSubmit}
-        handleSubmit={handleSubmit}
-        isValid={isValid}
         title="New garment"
         buttonText="Add garment"
       >
         <fieldset className="form__fieldset">
-          <label
-            htmlFor="name-input"
-            className={`form__label ${
-              errors.name ? "form__label_type_error" : ""
-            }`}
-          >
-            Name{" "}
-            {errors.name && (
-              <span className="form__input-error">
-                (This field is required)
-              </span>
-            )}
+          <label htmlFor="name-input" className="form__label">
+            Name
           </label>
           <input
             type="text"
-            className={`form__input ${
-              errors.name ? "form__input_type_error" : ""
-            }`}
+            className="form__input"
             id="name-input"
             placeholder="Name"
-            {...register("name", {
-              required: true,
-              minLength: 2,
-              maxLength: 30,
-            })}
           />
         </fieldset>
+
         <fieldset className="form__fieldset">
-          <label
-            htmlFor="image-input"
-            className={`form__label ${
-              errors.image ? "form__label_type_error" : ""
-            }`}
-          >
+          <label htmlFor="image-input" className="form__label">
             Image
-            {errors.image && (
-              <span className="form__input-error">
-                {errors.image.type === "pattern"
-                  ? " (Please enter a valid image URL)"
-                  : " (This field is required)"}
-              </span>
-            )}
           </label>
           <input
             type="url"
-            className={`form__input ${
-              errors.image ? "form__input_type_error" : ""
-            }`}
-            {...register("image", {
-              required: true,
-              pattern: {
-                value:
-                  /^https?:\/\/.*\.(jpg|jpeg|png|gif|webp|svg)(\?.*)?(#.*)?$/i,
-                message: "Enter a valid image URL",
-              },
-            })}
+            className="form__input"
             id="image-input"
             placeholder="Image URL"
           />
         </fieldset>
+
         <fieldset className="form__fieldset form__fieldset_radio">
-          <legend
-            className={`form__legend ${
-              errors.weather ? "form__legend_type_error" : ""
-            }`}
-          >
-            Select the weather type:{" "}
-            {errors.weather && (
-              <span className="form__input-error">
-                (Please select a weather type)
-              </span>
-            )}
-          </legend>
+          <legend className="form__legend">Select the weather type:</legend>
 
           <label htmlFor="hot" className="form__label form__label-radio">
             <input
@@ -207,10 +147,10 @@ function App() {
               id="hot"
               value="hot"
               name="weather"
-              {...register("weather", { required: true })}
             />
             <span className="form__label-text">Hot</span>
           </label>
+
           <label htmlFor="warm" className="form__label form__label-radio">
             <input
               type="radio"
@@ -218,10 +158,10 @@ function App() {
               id="warm"
               value="warm"
               name="weather"
-              {...register("weather", { required: true })}
             />
             <span className="form__label-text">Warm</span>
           </label>
+
           <label htmlFor="cold" className="form__label form__label-radio">
             <input
               type="radio"
@@ -229,12 +169,12 @@ function App() {
               id="cold"
               value="cold"
               name="weather"
-              {...register("weather", { required: true })}
             />
             <span className="form__label-text">Cold</span>
           </label>
         </fieldset>
       </ModalWithForm>
+
       <ItemModal
         activeModal={activeModal}
         selectedCard={selectedCard}
