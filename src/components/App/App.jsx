@@ -68,7 +68,7 @@ function App() {
     return () => {
       window.removeEventListener("mousedown", handleClickOutsideModal);
     };
-  }, [activeModal, handleModalClose]);
+  }, [activeModal]);
 
   // weather api
   useEffect(() => {
@@ -78,7 +78,7 @@ function App() {
         setWeatherData(filteredData);
       })
       .catch((err) => {
-        console.log("Failed to fetch weather data:", err);
+        console.err("Failed to fetch weather data:", err);
       });
   }, []);
 
