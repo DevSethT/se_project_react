@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -15,6 +16,12 @@ function App() {
     temp: { F: 999 },
     location: "",
   });
+
+  const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+
+  const handleToggleSwitchChange = () => {
+  setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F"));
+};
 
   const [clothingItems, setClothingItems] = useState(defaultClothingItems);
 
@@ -78,7 +85,7 @@ function App() {
         setWeatherData(filteredData);
       })
       .catch((err) => {
-        console.err("Failed to fetch weather data:", err);
+        console.error("Failed to fetch weather data:", err);
       });
   }, []);
 
@@ -89,6 +96,7 @@ function App() {
   };
 
   return (
+    <CurrentTemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
     <div className="page">
       <div className="page__content">
         <Header
@@ -181,6 +189,7 @@ function App() {
         handleModalClose={handleModalClose}
       />
     </div>
+    </CurrentTemperatureUnitContext.Provider>
   );
 }
 
