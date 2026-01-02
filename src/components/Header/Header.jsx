@@ -44,8 +44,8 @@ function Header({
               F
             </span>
 
-            <button
-              type="button"
+            <input
+              type="checkbox"
               className="header__temp-toggle"
               onClick={handleToggleSwitchChange}
             />
