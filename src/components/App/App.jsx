@@ -9,6 +9,9 @@ import ItemModal from "../ItemModal/ItemModal";
 import { filterWeatherData, getWeather } from "../../utils/weatherApi";
 import { location, apiKey } from "../../utils/constants";
 import { defaultClothingItems } from "../../utils/constants";
+import { Routes, Route } from 'react-router-dom';
+import Profile from '../Profile/Profile';
+
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -96,7 +99,9 @@ function App() {
   };
 
   return (
-    <CurrentTemperatureUnitContext.Provider value={{currentTemperatureUnit, handleToggleSwitchChange}}>
+ <CurrentTemperatureUnitContext.Provider
+    value={{ currentTemperatureUnit, handleToggleSwitchChange }}
+  >
     <div className="page">
       <div className="page__content">
         <Header
@@ -105,11 +110,21 @@ function App() {
           toggleMobileMenu={toggleMobileMenu}
           isMobileMenuOpened={isMobileMenuOpened}
         />
-        <Main
-          weatherData={weatherData}
-          handleCardClick={handleCardClick}
-          clothingItems={clothingItems}
-        />
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Main
+                weatherData={weatherData}
+                handleCardClick={handleCardClick}
+                clothingItems={clothingItems}
+              />
+            }
+          />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+
         <Footer />
       </div>
 
@@ -121,66 +136,6 @@ function App() {
         title="New garment"
         buttonText="Add garment"
       >
-        <fieldset className="form__fieldset">
-          <label htmlFor="name-input" className="form__label">
-            Name
-          </label>
-          <input
-            type="text"
-            className="form__input"
-            id="name-input"
-            placeholder="Name"
-          />
-        </fieldset>
-
-        <fieldset className="form__fieldset">
-          <label htmlFor="image-input" className="form__label">
-            Image
-          </label>
-          <input
-            type="url"
-            className="form__input"
-            id="image-input"
-            placeholder="Image URL"
-          />
-        </fieldset>
-
-        <fieldset className="form__fieldset form__fieldset_radio">
-          <legend className="form__legend">Select the weather type:</legend>
-
-          <label htmlFor="hot" className="form__label form__label-radio">
-            <input
-              type="radio"
-              className="form__input form__input_radio"
-              id="hot"
-              value="hot"
-              name="weather"
-            />
-            <span className="form__label-text">Hot</span>
-          </label>
-
-          <label htmlFor="warm" className="form__label form__label-radio">
-            <input
-              type="radio"
-              className="form__input form__input_radio"
-              id="warm"
-              value="warm"
-              name="weather"
-            />
-            <span className="form__label-text">Warm</span>
-          </label>
-
-          <label htmlFor="cold" className="form__label form__label-radio">
-            <input
-              type="radio"
-              className="form__input form__input_radio"
-              id="cold"
-              value="cold"
-              name="weather"
-            />
-            <span className="form__label-text">Cold</span>
-          </label>
-        </fieldset>
       </ModalWithForm>
 
       <ItemModal
@@ -189,8 +144,8 @@ function App() {
         handleModalClose={handleModalClose}
       />
     </div>
-    </CurrentTemperatureUnitContext.Provider>
-  );
+  </CurrentTemperatureUnitContext.Provider>
+);
 }
 
 export default App;
