@@ -1,8 +1,16 @@
-function Profile() {
+import SideBar from "../SideBar/SideBar";
+import ClothesSection from "../ClothesSection/ClothesSection";
+import "./profile.css"
+
+function Profile({ clothingItems, handleAddCard, handleCardClick }) {
   return (
-    <div>
-      <h1>Profile Page</h1>
-      <p>This is the profile route.</p>
+    <div className="profile">
+      <SideBar />
+      <ClothesSection
+        clothingItems={clothingItems}
+        handleAddCard={handleAddCard}
+        handleCardClick={handleCardClick}
+      />
     </div>
   );
 }

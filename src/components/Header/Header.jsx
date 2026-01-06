@@ -1,8 +1,8 @@
 import "./Header.css";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.webp";
-import { useContext } from "react";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import { Link } from "react-router-dom";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 function Header({
   weatherData,
@@ -10,10 +10,6 @@ function Header({
   toggleMobileMenu,
   isMobileMenuOpened,
 }) {
-  const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(
-    CurrentTemperatureUnitContext
-  );
-
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
@@ -25,7 +21,11 @@ function Header({
     <header className="header">
       <div className="header__container">
         <div className="header__container_logo-date">
-          <img className="header__logo" src={logo} alt="WTWR logo" />
+          {/* Logo -> main route */}
+          <Link to="/" className="header__logo-link">
+            <img className="header__logo" src={logo} alt="WTWR logo" />
+          </Link>
+
           <p className="header__date-location">
             {currentDate}, {location}
           </p>
@@ -33,33 +33,8 @@ function Header({
 
         {/* Desktop */}
         <div className="header__container_profile-details header__container_profile-details_desktop">
-          <div className="header__temp-switch">
-            <span
-              className={
-                currentTemperatureUnit === "F"
-                  ? "header__temp-unit header__temp-unit_active"
-                  : "header__temp-unit"
-              }
-            >
-              F
-            </span>
-
-            <input
-              type="checkbox"
-              className="header__temp-toggle"
-              onClick={handleToggleSwitchChange}
-            />
-
-            <span
-              className={
-                currentTemperatureUnit === "C"
-                  ? "header__temp-unit header__temp-unit_active"
-                  : "header__temp-unit"
-              }
-            >
-              C
-            </span>
-          </div>
+          {/* ToggleSwitch is now its own component */}
+          <ToggleSwitch />
 
           <button
             type="button"
@@ -68,8 +43,12 @@ function Header({
           >
             + Add Clothes
           </button>
-          <p className="header__name">Terrence Tegegne</p>
-          <img src={avatar} alt="profile picture" className="header__avatar" />
+
+          {/* Profile -> /profile route */}
+          <Link to="/profile" className="header__profile-link">
+            <p className="header__name">Terrence Tegegne</p>
+            <img src={avatar} alt="profile picture" className="header__avatar" />
+          </Link>
         </div>
 
         {!isMobileMenuOpened && (
@@ -89,33 +68,8 @@ function Header({
               onClick={toggleMobileMenu}
             />
 
-            <div className="header__temp-switch">
-              <span
-                className={
-                  currentTemperatureUnit === "F"
-                    ? "header__temp-unit header__temp-unit_active"
-                    : "header__temp-unit"
-                }
-              >
-                F
-              </span>
-
-              <button
-                type="button"
-                className="header__temp-toggle"
-                onClick={handleToggleSwitchChange}
-              />
-
-              <span
-                className={
-                  currentTemperatureUnit === "C"
-                    ? "header__temp-unit header__temp-unit_active"
-                    : "header__temp-unit"
-                }
-              >
-                C
-              </span>
-            </div>
+            {/* ToggleSwitch in mobile modal too */}
+            <ToggleSwitch />
 
             <button
               type="button"
@@ -125,14 +79,14 @@ function Header({
               + Add Clothes
             </button>
 
-            <div className="header__details-mobile">
+            <Link to="/profile" className="header__details-mobile header__profile-link">
               <p className="header__name">Terrence Tegegne</p>
               <img
                 src={avatar}
                 alt="profile picture"
                 className="header__avatar"
               />
-            </div>
+            </Link>
           </div>
         )}
       </div>
