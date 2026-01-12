@@ -1,142 +1,148 @@
 .header {
-  height: 40px;
-  padding-top: 32px;
-  margin-bottom: 28px;
+  width: 100%;
+  padding: 32px 40px 28px;
+  box-sizing: border-box;
 }
 
 .header__container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
+
 .header__container_logo-date {
   display: flex;
-  gap: 24px;
   align-items: center;
+  gap: 24px;
+}
+
+.header__logo-link {
+  display: flex;
+  text-decoration: none;
 }
 
 .header__logo {
-  height: 40px;
   width: 89px;
+  height: 40px;
+  display: block;
 }
 
 .header__date-location {
   margin: 0;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  color: black;
 }
 
 .header__container_profile-details {
   display: flex;
   align-items: center;
+  gap: 20px;
+}
+
+.header__container_profile-details_desktop {
+  display: flex;
 }
 
 .header__button {
   border: none;
-  font-weight: 700;
-  font-size: 20px;
   background: none;
-  padding: 0 20px 0 0;
-  margin: 0;
-  transition: opacity 0.2s ease-in-out;
+  padding: 0;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  cursor: pointer;
+  color: black;
 }
 
-.header__button:hover {
-  cursor: pointer;
-  opacity: 70%;
+.header__profile-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: black;
 }
 
 .header__name {
   margin: 0;
-  padding: 0 12px 0 0;
-  line-height: 100%;
-  text-align: center;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+  color: black;
 }
 
 .header__avatar {
   width: 40px;
   height: 40px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 50%;
+  object-fit: cover;
 }
 
-.header__container_profile-details_mobile {
+.header__mobile-menu-button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: none;
+  padding: 0;
+  border-radius: 10px;
+}
+
+.header__container_profile-details_mobile-modal {
   display: none;
 }
 
-.header__container_profile-details_mobile-button {
-  display: none;
+.profile-modal__close-button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  align-self: flex-end;
 }
 
 @media screen and (max-width: 755px) {
   .header {
-    height: 100px;
-    padding-top: 18px;
-    margin-bottom: 16px;
+    padding: 18px 16px;
   }
 
-  .header__container_logo-date {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .header__date-location {
+    font-size: 16px;
+    line-height: 20px;
   }
+
   .header__container_profile-details_desktop {
     display: none;
   }
 
+  .header__mobile-menu-button {
+    display: block;
+  }
+
   .header__container_profile-details_mobile-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 343px;
-    background-color: white;
-    margin: 18px 16px 0 16px;
-    box-sizing: border-box;
-    z-index: 1000;
     display: flex;
-    flex-direction: column-reverse;
-    border-radius: 12px;
-  }
-
-  .header__container_profile-details_mobile-button {
-    display: flex;
-    background-image: url(../../assets/mobilehamburgermenu.svg);
-    height: 44px;
-    width: 44px;
-    border: none;
-    background-size: 100%;
-    background-color: transparent;
-    padding: 0;
-    align-self: flex-start;
-  }
-
-  .profile-modal__close-button {
-    background-image: url(../../assets/closebuttonmobile.svg);
-    background-color: transparent;
-    height: 20px;
-    width: 20px;
-    border: none;
+    flex-direction: column;
+    gap: 24px;
     position: absolute;
-    top: 5%;
-    right: 5%;
-    padding: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  .profile-modal__close-button:hover {
-    cursor: pointer;
-    opacity: 70%;
+    top: 0;
+    right: 0;
+    width: 343px;
+    padding: 20px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 20px;
+    z-index: 1000;
   }
 
   .header__details-mobile {
-    display: flex;
-    padding: 60px 0 0 0;
-  }
-
-  .header__name {
-    align-self: center;
-  }
-
-  .header__button {
-    padding: 24px 0 60px 0;
+    width: 100%;
+    justify-content: space-between;
   }
 }

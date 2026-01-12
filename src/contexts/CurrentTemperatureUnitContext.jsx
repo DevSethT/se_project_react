@@ -1,6 +1,4 @@
 import { createContext } from "react";
+const CurrentTemperatureUnitContext = createContext();
 
-export const CurrentTemperatureUnitContext = createContext({
-  currentTemperatureUnit: "F",
-  handleToggleSwitchChange: () => {},
-});
+export default CurrentTemperatureUnitContext;

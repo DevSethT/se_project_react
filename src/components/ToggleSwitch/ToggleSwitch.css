@@ -1,48 +1,61 @@
-.toggle-switch {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-    user-select: none;
+.weather-toggle {
+  height: 0;
+  width: 0;
+  visibility: hidden;
 }
 
-.toggle-switch__checkbox {
-    display: none;
+.weather-toggle__label {
+  border: 2px solid rgba(126, 126, 126, 1);
+  width: 52px;
+  height: 24px;
+  border-radius: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
-/* slider background */
-.toggle-switch__slider {
-    position: relative;
-    width: 56px;
-    height: 28px;
-    background-color: #7e7e7e;
-    border-radius: 20px;
-    transition: background-color 0.3s ease;
+.weather-toggle__button {
+  background: rgba(0, 0, 0, 1);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  transition: 0.3s;
 }
 
-/* knob */
-.toggle-switch__slider::before {
-    content: "";
-    position: absolute;
-    width: 24px;
-    height: 24px;
-    left: 2px;
-    top: 2px;
-    background-color: white;
-    border-radius: 50%;
-    transition: transform 0.3s ease;
+.weather-toggle:checked + .weather-toggle__label .weather-toggle__button {
+  left: calc(100% - -2px);
+  transform: translateX(-100%);
 }
 
-/* checked state */
-.toggle-switch__checkbox:checked+.toggle-switch__slider {
-    background-color: #000;
+.weather-toggle__label:active .weather-toggle__button {
+  border: 2px solid black;
 }
 
-.toggle-switch__checkbox:checked+.toggle-switch__slider::before {
-    transform: translateX(28px);
+.weather-toggle__text {
+  position: absolute;
+  z-index: 1000;
+  color: rgba(126, 126, 126, 1);
 }
 
-.toggle-switch__text {
-    font-weight: 700;
-    font-size: 14px;
+.weather-toggle__text_color-white {
+  color: rgba(255, 255, 255, 1);
+}
+
+.weather-toggle__text_fahrenheit {
+  left: 7px;
+}
+
+.weather-toggle__text_celsius {
+  right: 7px;
+}
+
+@media screen and (max-width: 755px) {
+  .weather-toggle__label {
+    margin: 0 0 40px 0;
+  }
 }

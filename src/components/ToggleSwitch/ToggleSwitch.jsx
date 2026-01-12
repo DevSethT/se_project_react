@@ -1,6 +1,6 @@
-import { useContext } from "react";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
 import "./ToggleSwitch.css";
+import { useContext } from "react";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
 function ToggleSwitch() {
   const { currentTemperatureUnit, handleToggleSwitchChange } = useContext(
@@ -8,18 +8,38 @@ function ToggleSwitch() {
   );
 
   return (
-    <label className="toggle-switch">
+    <>
       <input
         type="checkbox"
-        className="toggle-switch__checkbox"
+        className="weather-toggle"
+        id="weather-toggle-switch"
         checked={currentTemperatureUnit === "C"}
         onChange={handleToggleSwitchChange}
       />
-      <span className="toggle-switch__slider"></span>
-      <span className="toggle-switch__text">
-        {currentTemperatureUnit}
-      </span>
-    </label>
+      <label htmlFor="weather-toggle-switch" className="weather-toggle__label">
+        <span className="weather-toggle__button"></span>
+
+        <span
+          className={`weather-toggle__text weather-toggle__text_fahrenheit ${
+            currentTemperatureUnit === "F"
+              ? "weather-toggle__text_color-white"
+              : ""
+          }`}
+        >
+          F
+        </span>
+
+        <span
+          className={`weather-toggle__text weather-toggle__text_celsius ${
+            currentTemperatureUnit === "C"
+              ? "weather-toggle__text_color-white"
+              : ""
+          }`}
+        >
+          C
+        </span>
+      </label>
+    </>
   );
 }
 

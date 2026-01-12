@@ -1,6 +1,6 @@
 import "./WeatherCard.css";
 import { useContext } from "react";
-import { CurrentTemperatureUnitContext } from "../../contexts/CurrentTemperatureUnitContext";
+import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import { weatherImages } from "../../utils/constants";
 const defaultWeatherImage = new URL(
   "../../assets/default.webp",
