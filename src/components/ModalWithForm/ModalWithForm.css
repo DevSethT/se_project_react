@@ -1,188 +1,115 @@
 .modal {
   visibility: hidden;
   position: fixed;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.3);
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   opacity: 0;
-  transition: visibility 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  transition: visibility 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  z-index: 1000;
 }
 
 .modal__is-opened {
   visibility: visible;
   opacity: 1;
-  transition-delay: 0s;
 }
 
 .form-modal__container {
-  background-color: white;
-  height: 372px;
-  max-width: 440px;
-  width: 100%;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
   position: relative;
-  padding: 28px 28px 36px;
+  width: 670px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 28px 28px 32px;
+  box-sizing: border-box;
 }
 
 .form-modal__close-button {
-  background-image: url(../../assets/closebuttondark.svg);
-  height: 20px;
-  width: 20px;
-  border: none;
   position: absolute;
-  top: 5%;
-  right: 5%;
+  top: 20px;
+  right: 20px;
+  width: 16px;
+  height: 16px;
+  border: none;
   padding: 0;
-  transition: opacity 0.3s ease-in-out;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0.6;
 }
 
 .form-modal__close-button:hover {
-  cursor: pointer;
-  opacity: 70%;
+  opacity: 1;
 }
 
 .form-modal__title {
-  font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
+  margin: 0 0 24px;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.modal__label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
   font-size: 16px;
   font-weight: 700;
-  line-height: 1;
-  color: black;
-  margin: 0 0 24px 0;
+  line-height: 20px;
+}
+
+.modal__input {
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 1);
+  padding: 6px 0;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  outline: none;
+}
+
+.modal__input::placeholder {
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .form-modal__button {
-  font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1;
-  color: white;
+  width: 128px;
+  height: 36px;
   border: none;
   border-radius: 4px;
-  height: 36px;
-  padding: 0;
-  width: 124px;
-  transition: background-color 0.3s ease-in-out;
-  margin-top: 32px;
-}
-
-.form-modal__button:enabled {
-  background-color: black;
-}
-
-.form-modal__button:disabled {
-  background-color: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
+  color: #fff;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
 }
 
 .form-modal__button:hover {
-  background-color: rgba(0, 0, 0, 0.6);
-  cursor: pointer;
-}
-
-.form__fieldset {
-  border: none;
-  max-width: 440px;
-  height: 52px;
-  padding: 0;
-  margin: 0 0 24px 0;
-  display: flex;
-  flex-direction: column;
-}
-
-.form__label {
-  font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.form__input {
-  font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1;
-  padding-left: 8px;
-  margin: 0;
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid black;
-}
-
-.form__input::placeholder {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.form__legend {
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-
-.form__fieldset_radio {
-  height: 108px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 0;
-}
-
-.form__label-radio {
-  color: rgba(0, 0, 0, 0.5);
-  margin: 0;
-  display: flex;
-
-  gap: 11px;
-}
-
-.form__input_radio:checked + .form__label-text {
-  color: black;
-}
-
-.form__input_type_error {
-  border-bottom-color: red;
-}
-
-.form__label_type_error {
-  color: red;
-}
-
-.form__legend_type_error {
-  color: red;
-}
-
-.form__input-error {
-  color: red;
-  font-size: 16px;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 755px) {
   .form-modal__container {
-    max-width: 319px;
-    height: 391px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    border-radius: 20px 20px 0 0;
-  }
-
-  .form-modal__close-button {
-    background-image: url(../../assets/closebuttonmobile.svg);
-    background-color: transparent;
-    top: 3%;
-    right: 5%;
-    background-size: contain;
+    width: 343px;
+    padding: 20px 20px 28px;
   }
 
   .form-modal__title {
-    font-size: 20px;
+    margin-bottom: 20px;
   }
-  .form-modal__button {
-    width: 343px;
+
+  .form {
+    gap: 20px;
   }
 }

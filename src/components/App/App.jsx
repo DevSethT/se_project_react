@@ -8,6 +8,7 @@ import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
+import DeleteModal from "../DeleteModal/DeleteModal";
 
 import ItemModal from "../ItemModal/ItemModal";
 import AddItemModal from "../AddItemModal/AddItemModal";
@@ -51,6 +52,12 @@ function App() {
 
   const handleModalClose = () => {
     setActiveModal("");
+    setSelectedCard({});
+  };
+
+  const openDeleteModal = (card) => {
+    setSelectedCard(card);
+    setActiveModal("delete-modal");
   };
 
   useEffect(() => {
@@ -168,7 +175,14 @@ function App() {
           activeModal={activeModal}
           selectedCard={selectedCard}
           handleModalClose={handleModalClose}
-          onDeleteItem={handleDeleteItem}
+          onOpenDelete={openDeleteModal}
+        />
+
+        <DeleteModal
+          activeModal={activeModal}
+          onClose={handleModalClose}
+          onCardDelete={handleDeleteItem}
+          selectedCard={selectedCard}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>
