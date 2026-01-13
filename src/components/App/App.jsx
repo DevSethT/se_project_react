@@ -32,7 +32,7 @@ function App() {
 
   const [clothingItems, setClothingItems] = useState([]);
 
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState({});
   const [activeModal, setActiveModal] = useState("");
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
 
@@ -114,7 +114,7 @@ function App() {
       .then(() => {
         setClothingItems((prev) => prev.filter((i) => i._id !== item._id));
         handleModalClose();
-        setSelectedCard(null);
+        setSelectedCard({});
       })
       .catch((err) => console.error("Failed to delete item:", err));
   };

@@ -1,51 +1,26 @@
 import "./ItemModal.css";
 
-function ItemModal({
-  activeModal,
-  selectedCard,
-  handleModalClose,
-  onDeleteItem,
-}) {
-  const isOpen = activeModal === "item-modal";
-
-  if (!isOpen) return null;
-  if (!selectedCard) return null;
-
-  const imageSrc = selectedCard.imageUrl || selectedCard.link || "";
-  const name = selectedCard.name || "";
-  const weather = selectedCard.weather || "";
-
-  const handleDeleteClick = () => {
-    if (typeof onDeleteItem === "function") {
-      onDeleteItem(selectedCard);
-    }
-  };
-
+function ItemModal({ activeModal, selectedCard, handleModalClose }) {
   return (
-    <div className={`modal ${isOpen ? "modal_opened" : ""}`}>
-      <div className="modal__content modal__content_type_image">
+    <div
+      className={`item-modal ${
+        activeModal === "item-modal" && "item-modal__is-opened"
+      }`}
+    >
+      <div className="item-modal__container">
         <button
           type="button"
-          className="modal__close"
+          className="item-modal__close-button"
           onClick={handleModalClose}
-          aria-label="Close modal"
         />
-
-        <img className="modal__image" src={imageSrc} alt={name} />
-
-        <div className="modal__footer">
-          <div className="modal__caption">
-            <p className="modal__item-name">{name}</p>
-            <p className="modal__weather">Weather: {weather}</p>
-          </div>
-
-          <button
-            type="button"
-            className="modal__delete-button"
-            onClick={handleDeleteClick}
-          >
-            Delete item
-          </button>
+        <img
+          src={selectedCard.imageUrl}
+          alt={selectedCard.name}
+          className="item-modal__image"
+        />
+        <div className="item-modal__content">
+          <h2 className="item-modal__title">{selectedCard.name}</h2>
+          <p className="item-modal__weather">Weather: {selectedCard.weather}</p>
         </div>
       </div>
     </div>

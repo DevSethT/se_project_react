@@ -70,6 +70,19 @@
   line-height: 24px;
   margin: 0 0 32px 0;
 }
+
+.item-modal__delete-button {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #ff4d00;
+  font-family: "Cabinet Grotesk", Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
 @media screen and (max-width: 755px) {
   .item-modal__container {
     max-width: 343px;

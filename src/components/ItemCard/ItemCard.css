@@ -33,7 +33,9 @@
   border-radius: 20px;
   transition: box-shadow 0.2s ease-in-out;
   width: 325px;
-  max-height: 325px;
+  height: 325px;
+  object-fit: cover;
+  display: block;
 }
 
 .item-card__image:hover {
@@ -48,9 +50,11 @@
   }
 
   .item-card__image {
-    max-width: 164px;
+    width: 164px;
     height: 164px;
+    object-fit: cover;
   }
+
   .item-card {
     max-width: 164px;
     height: 164px;
