@@ -14,7 +14,7 @@ This project is a webpage titled What to Wear, showcasing current weather for a 
 
 **Functionality**
 
-This webpage is connected to the OpenWeatherMap API, allowing the current weather for the determined location to pull in dynamically along with updating the weather image near the top of the page based on current weather conditions. The cards below render dynamically based on current weather conditions and users are able to add their own clothing items which will also be filtered based on weather selections.
+This webpage is connected to the OpenWeatherMap API, allowing the current weather for the determined location to pull in dynamically along with updating the weather image near the top of the page based on current weather conditions. The cards below render dynamically based on current weather conditions and users are able to add their own clothing items which will also be filtered based on weather selections. Right now the cards are set up to render from a mock server.
 
 **Technologies & Techniques**
 
