@@ -3,52 +3,43 @@ import { Routes, Route } from "react-router-dom";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 
-import "./App.css";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
+
+import AddItemModal from "../AddItemModal/AddItemModal";
+import ItemModal from "../ItemModal/ItemModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 
-import ItemModal from "../ItemModal/ItemModal";
-import AddItemModal from "../AddItemModal/AddItemModal";
-
-import { filterWeatherData, getWeather } from "../../utils/weatherApi";
-import { location, apiKey } from "../../utils/constants";
-
+import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { getItems, addItem, deleteItem } from "../../utils/api";
+import { location, apiKey } from "../../utils/constants";
+import "./App.css";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
     type: "",
-    temp: { F: 999, C: 999 },
+    temp: { F: 0, C: 0 },
     location: "",
   });
 
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
+  const [clothingItems, setClothingItems] = useState([]);
+  const [activeModal, setActiveModal] = useState("");
+  const [selectedCard, setSelectedCard] = useState({});
+  const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F"));
   };
-
-  const [clothingItems, setClothingItems] = useState([]);
-
-  const [selectedCard, setSelectedCard] = useState({});
-  const [activeModal, setActiveModal] = useState("");
-  const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
     setActiveModal("item-modal");
   };
 
-  const handleAddCard = () => {
-    setActiveModal("add-garment");
-  };
-
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpened((prev) => !prev);
-  };
+  const handleAddCard = () => setActiveModal("add-garment");
 
   const handleModalClose = () => {
     setActiveModal("");
@@ -61,70 +52,57 @@ function App() {
   };
 
   useEffect(() => {
-    if (!activeModal) return;
-
-    const handleEscapeKey = (e) => {
-      if (e.key === "Escape") {
-        handleModalClose();
-      }
-    };
-
-    window.addEventListener("keydown", handleEscapeKey);
-    return () => window.removeEventListener("keydown", handleEscapeKey);
-  }, [activeModal]);
-
-  useEffect(() => {
-    if (!activeModal) return;
-
-    const handleClickOutsideModal = (e) => {
-      if (e.target.classList.contains("modal")) {
-        handleModalClose();
-      }
-    };
-
-    window.addEventListener("mousedown", handleClickOutsideModal);
-    return () =>
-      window.removeEventListener("mousedown", handleClickOutsideModal);
-  }, [activeModal]);
-
-  useEffect(() => {
     getWeather(location, apiKey)
-      .then((data) => {
-        const filteredData = filterWeatherData(data);
-        setWeatherData(filteredData);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch weather data:", err);
-      });
+      .then((data) => setWeatherData(filterWeatherData(data)))
+      .catch(console.error);
   }, []);
 
   useEffect(() => {
-    getItems()
-      .then((items) => setClothingItems(items))
-      .catch((err) => console.error("Failed to fetch items:", err));
+    getItems().then(setClothingItems).catch(console.error);
   }, []);
 
-  const handleAddItem = (itemData, resetForm) => {
-    addItem(itemData)
+  const handleAddItem = (item, resetForm) => {
+    addItem(item)
       .then((newItem) => {
         setClothingItems((prev) => [newItem, ...prev]);
-        if (typeof resetForm === "function") resetForm();
+        resetForm();
         handleModalClose();
       })
-      .catch((err) => console.error("Failed to add item:", err));
+      .catch(console.error);
   };
 
   const handleDeleteItem = (item) => {
-    if (!item?._id) return;
+    if (item == null || item._id == null) return;
 
     deleteItem(item._id)
       .then(() => {
         setClothingItems((prev) => prev.filter((i) => i._id !== item._id));
         handleModalClose();
-        setSelectedCard({});
       })
-      .catch((err) => console.error("Failed to delete item:", err));
+      .catch(console.error);
   };
+
+  useEffect(() => {
+    if (!activeModal) return;
+
+    const handleEscClose = (e) => {
+      if (e.key === "Escape") handleModalClose();
+    };
+
+    const handleClickOutside = (e) => {
+      if (e.target.classList.contains("modal-overlay")) {
+        handleModalClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleEscClose);
+    window.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("keydown", handleEscClose);
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [activeModal]);
 
   return (
     <CurrentTemperatureUnitContext.Provider
@@ -135,7 +113,7 @@ function App() {
           <Header
             weatherData={weatherData}
             handleAddCard={handleAddCard}
-            toggleMobileMenu={toggleMobileMenu}
+            toggleMobileMenu={() => setIsMobileMenuOpened((p) => !p)}
             isMobileMenuOpened={isMobileMenuOpened}
           />
 
@@ -145,8 +123,8 @@ function App() {
               element={
                 <Main
                   weatherData={weatherData}
-                  handleCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  handleCardClick={handleCardClick}
                 />
               }
             />
@@ -175,14 +153,14 @@ function App() {
           activeModal={activeModal}
           selectedCard={selectedCard}
           handleModalClose={handleModalClose}
-          onOpenDelete={openDeleteModal}
+          onDeleteClick={openDeleteModal}
         />
 
         <DeleteModal
           activeModal={activeModal}
+          selectedCard={selectedCard}
           onClose={handleModalClose}
           onCardDelete={handleDeleteItem}
-          selectedCard={selectedCard}
         />
       </div>
     </CurrentTemperatureUnitContext.Provider>

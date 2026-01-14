@@ -10,7 +10,11 @@ function ModalWithForm({
   onSubmit,
 }) {
   return (
-    <div className={`modal modal_${name} ${isOpen ? "modal__is-opened" : ""}`}>
+    <div
+      className={`modal modal-overlay modal_${name} ${
+        isOpen ? "modal__is-opened" : ""
+      }`}
+    >
       <div className="form-modal__container">
         <button
           type="button"
@@ -21,7 +25,6 @@ function ModalWithForm({
 
         <form className="form" noValidate onSubmit={onSubmit}>
           {children}
-
           <button type="submit" className="form-modal__button">
             {buttonText}
           </button>

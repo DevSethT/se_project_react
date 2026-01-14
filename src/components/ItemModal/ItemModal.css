@@ -75,20 +75,21 @@
   margin: 0 0 32px 0;
 }
 
-.item-modal__delete-button {
-  color: red;
-  background-color: transparent;
+.item-modal__delete-btn {
   margin: 20px 33px 0 0;
-  padding: 0;
+  background: transparent;
   border: none;
-  font-size: 20px;
+  color: #ff4d00;
+  font-size: 16px;
   font-weight: 700;
+  line-height: 20px;
+  padding: 0;
+  cursor: pointer;
   transition: opacity 0.2s ease-in-out;
 }
 
-.item-modal__delete-button:hover {
-  cursor: pointer;
-  opacity: 70%;
+.item-modal__delete-btn:hover {
+  opacity: 0.7;
 }
 
 @media screen and (max-width: 755px) {
