@@ -65,6 +65,12 @@
       "name": "Jeans-Blue",
       "weather": "warm",
       "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbXlOKmnS5lyVbwMX7oIkI1m5snSf9hbTbOw&s"
+    },
+    {
+      "name": "polo shirt",
+      "imageUrl": "https://freshcleantees.com/cdn/shop/files/GhostMannequinsPOLOBlack_320x.jpg?v=1762306703",
+      "weather": "hot",
+      "_id": 11
     }
   ]
 }
