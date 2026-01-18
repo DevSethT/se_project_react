@@ -1,10 +1,9 @@
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalwithForm";
-import useForm from "../../hooks/useForm";
-import { useEffect } from "react";
+import useFormWithValidation from "../../hooks/useFormWithValidation";
 
 function AddItemModal({ isOpen, onAddItem, onCloseModal}) {
-  const { values, handleChange, resetForm } = useForm({
+  const { values, handleChange, resetForm, errors, isValid, validateForm } = useFormWithValidation({
     name: "",
     imageUrl: "",
     weather: "",
@@ -13,7 +12,11 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem(values, resetForm);
+    if (isValid) {
+      onAddItem(values, resetForm);
+    } else {
+      validateForm(values);
+    }
   };
 
   return (
@@ -24,6 +27,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal}) {
       isOpen={isOpen}
       handleModalClose={onCloseModal}
       onSubmit={handleSubmit}
+      isValid={isValid}
     >
       <div className="form__inputs">
 
@@ -38,6 +42,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal}) {
           value={values.name}
           onChange={handleChange}
           />
+        {errors.name && <span className="form__error">{errors.name}</span>}
       </label>
 
       <label className="form__label">
@@ -51,6 +56,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal}) {
           value={values.imageUrl}
           onChange={handleChange}
           />
+        {errors.imageUrl && <span className="form__error">{errors.imageUrl}</span>}
       </label>
 
       <fieldset className="form__radio-buttons">
@@ -70,6 +76,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal}) {
             <span className="form__radio-text">{type[0].toUpperCase() + type.slice(1)}</span>
           </label>
         ))}
+        {errors.weather && <span className="form__error">{errors.weather}</span>}
       </fieldset>
       </div>
     </ModalWithForm>
