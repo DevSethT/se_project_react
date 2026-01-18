@@ -1,13 +1,15 @@
 import "./AddItemModal.css";
 import ModalWithForm from "../ModalWithForm/ModalwithForm";
 import useForm from "../../hooks/useForm";
+import { useEffect } from "react";
 
-function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
+function AddItemModal({ isOpen, onAddItem, onCloseModal}) {
   const { values, handleChange, resetForm } = useForm({
     name: "",
     imageUrl: "",
     weather: "",
   });
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -65,7 +67,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
               onChange={handleChange}
               required
               />
-            <span>{type[0].toUpperCase() + type.slice(1)}</span>
+            <span className="form__radio-text">{type[0].toUpperCase() + type.slice(1)}</span>
           </label>
         ))}
       </fieldset>

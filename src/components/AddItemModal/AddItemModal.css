@@ -24,6 +24,11 @@
         border-bottom: 1px solid black;
 }
 
+
+.form__input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
 .form__input_type_error {
     border-bottom-color: red;
 }
@@ -37,9 +42,6 @@
     font-size: 16px;
 }
 
-.form__input::placeholder {
-    color: rgba(0, 0, 0, 0.5);
-}
 
 .form__radio-buttons {
     height: 108px;
@@ -52,7 +54,7 @@
         gap: 8px;
 }
 
-.form__radio-input:checked + .form__label-text {
+.form__radio-input:checked + .form__radio-text{
     color: black;
 }
 
