@@ -18,14 +18,14 @@ function ModalWithForm({
       <div className="form-modal__container">
         <button
           type="button"
-          className="form-modal__close-button"
+          className="form-modal__close-btn"
           onClick={handleModalClose}
         />
         <h2 className="form-modal__title">{title}</h2>
 
         <form className="form" noValidate onSubmit={onSubmit}>
           {children}
-          <button type="submit" className="form-modal__button">
+          <button type="submit" className="form-modal__smt-btn">
             {buttonText}
           </button>
         </form>

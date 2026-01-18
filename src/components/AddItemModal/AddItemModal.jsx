@@ -1,4 +1,5 @@
-import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./AddItemModal.css";
+import ModalWithForm from "../ModalWithForm/ModalwithForm";
 import useForm from "../../hooks/useForm";
 
 function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
@@ -22,11 +23,11 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       handleModalClose={onCloseModal}
       onSubmit={handleSubmit}
     >
-      <label className="modal__label">
+      <label className="form__label">
         Name
         <input
           type="text"
-          className="modal__input"
+          className="form__input"
           name="name"
           required
           value={values.name}
@@ -34,11 +35,11 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
         />
       </label>
 
-      <label className="modal__label">
+      <label className="form__label">
         Image
         <input
           type="url"
-          className="modal__input"
+          className="form__input"
           name="imageUrl"
           required
           value={values.imageUrl}
@@ -46,16 +47,16 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
         />
       </label>
 
-      <fieldset className="modal__radio-buttons">
-        <legend className="modal__legend">Select the weather type:</legend>
+      <fieldset className="form__radio-buttons">
+        <legend className="form__legend">Select the weather type:</legend>
 
         {["hot", "warm", "cold"].map((type) => (
-          <label key={type} className="modal__radio-label">
+          <label key={type} className="form__radio-label">
             <input
               type="radio"
               name="weather"
               value={type}
-              className="modal__radio-input"
+              className="form__radio-input"
               checked={values.weather === type}
               onChange={handleChange}
               required
