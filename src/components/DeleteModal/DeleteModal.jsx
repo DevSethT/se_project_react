@@ -11,6 +11,8 @@ function DeleteModal({ activeModal, onClose, onCardDelete, selectedCard }) {
           className="delete-modal__close-button"
           onClick={onClose}
         />
+        <div className="delete-modal__content">
+
         <p className="delete-modal__text">
           Are you sure you want to delete this item?
           <br />
@@ -18,18 +20,19 @@ function DeleteModal({ activeModal, onClose, onCardDelete, selectedCard }) {
         </p>
         <button
           type="button"
-          className="delete-modal__confirm"
+          className="delete-modal__buttons delete-modal__confirm"
           onClick={() => onCardDelete(selectedCard)}
-        >
+          >
           Yes, delete item
         </button>
         <button
           type="button"
-          className="delete-modal__cancel"
+          className="delete-modal__buttons delete-modal__cancel"
           onClick={onClose}
-        >
+          >
           Cancel
         </button>
+          </div>
       </div>
     </div>
   );
