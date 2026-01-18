@@ -23,16 +23,19 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
       handleModalClose={onCloseModal}
       onSubmit={handleSubmit}
     >
+      <div className="form__inputs">
+
       <label className="form__label">
         Name
         <input
           type="text"
           className="form__input"
           name="name"
+          placeholder="Name"
           required
           value={values.name}
           onChange={handleChange}
-        />
+          />
       </label>
 
       <label className="form__label">
@@ -42,9 +45,10 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
           className="form__input"
           name="imageUrl"
           required
+          placeholder="Image Url"
           value={values.imageUrl}
           onChange={handleChange}
-        />
+          />
       </label>
 
       <fieldset className="form__radio-buttons">
@@ -60,11 +64,12 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal }) {
               checked={values.weather === type}
               onChange={handleChange}
               required
-            />
+              />
             <span>{type[0].toUpperCase() + type.slice(1)}</span>
           </label>
         ))}
       </fieldset>
+      </div>
     </ModalWithForm>
   );
 }

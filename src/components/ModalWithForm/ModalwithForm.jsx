@@ -21,7 +21,7 @@ function ModalWithForm({
           className="form-modal__close-btn"
           onClick={handleModalClose}
         />
-        <h2 className="form-modal__title">{title}</h2>
+        <p className="form-modal__title">{title}</p>
 
         <form className="form" noValidate onSubmit={onSubmit}>
           {children}
