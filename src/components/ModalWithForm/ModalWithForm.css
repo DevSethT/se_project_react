@@ -86,3 +86,27 @@ visibility: visible;
 .form-modal__smt-btn:hover{
     background-color: rgba(0, 0, 0, 0.6);
 }
+
+@media screen and (max-width: 755px) {
+    .form-modal__container {
+        max-width: 319px;
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    .form-modal__close-button {
+        background-image: url(../../assets/closebuttonmobile.svg);
+        background-color: transparent;
+        top: 3%;
+        right: 5%;
+        background-size: contain;
+    }
+
+    .form-modal__title {
+        font-size: 20px;
+    }
+
+    .form-modal__button {
+        width: 319px;
+    }
+}
