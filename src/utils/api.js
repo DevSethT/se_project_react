@@ -5,14 +5,20 @@ export const checkResponse = (res) =>
 
 export const getItems = () => fetch(`${baseUrl}/items`).then(checkResponse);
 
-export const addItem = (item) =>
+export const addItem = (item, token) =>
   fetch(`${baseUrl}/items`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(item),
   }).then(checkResponse);
 
-export const deleteItem = (id) =>
+export const deleteItem = (id, token) =>
   fetch(`${baseUrl}/items/${id}`, {
     method: "DELETE",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
   }).then(checkResponse);

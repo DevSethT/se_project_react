@@ -1,6 +1,5 @@
 import "./Header.css";
 import logo from "../../assets/logo.svg";
-import avatar from "../../assets/avatar.webp";
 import { Link } from "react-router-dom";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
@@ -9,6 +8,10 @@ function Header({
   handleAddCard,
   toggleMobileMenu,
   isMobileMenuOpened,
+  isLoggedIn,
+  currentUser,
+  onLoginClick,
+  onRegisterClick,
 }) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
@@ -16,6 +19,9 @@ function Header({
   });
 
   const location = weatherData?.location || "";
+  const name = currentUser?.name || "";
+  const avatarUrl = currentUser?.avatar || "";
+  const firstLetter = name ? name[0].toUpperCase() : "?";
 
   return (
     <header className="header">
@@ -31,26 +37,40 @@ function Header({
           </p>
         </div>
 
-        <div className="header__container_profile-details header__container_profile-details_desktop">
-          <ToggleSwitch />
+<div className="header__container_profile-details header__container_profile-details_desktop">
+  <ToggleSwitch />
 
-          <button
-            type="button"
-            className="header__button"
-            onClick={handleAddCard}
-          >
-            + Add Clothes
-          </button>
+  {isLoggedIn ? (
+    <>
+      <button
+        type="button"
+        className="header__button"
+        onClick={handleAddCard}
+      >
+        + Add Clothes
+      </button>
 
-          <Link to="/profile" className="header__profile-link">
-            <p className="header__name">Terrence Tegegne</p>
-            <img
-              src={avatar}
-              alt="profile picture"
-              className="header__avatar"
-            />
-          </Link>
-        </div>
+      <Link to="/profile" className="header__profile-link">
+        <p className="header__name">{name}</p>
+
+        {avatarUrl ? (
+          <img src={avatarUrl} alt="profile" className="header__avatar" />
+        ) : (
+          <div className="header__avatar-placeholder">{firstLetter}</div>
+        )}
+      </Link>
+    </>
+  ) : (
+    <div className="header__auth">
+      <button type="button" className="header__auth-button" onClick={onRegisterClick}>
+        Sign up
+      </button>
+      <button type="button" className="header__auth-button" onClick={onLoginClick}>
+        Log in
+      </button>
+    </div>
+  )}
+</div>
 
         {!isMobileMenuOpened && (
           <button
@@ -72,25 +92,55 @@ function Header({
 
             <ToggleSwitch />
 
-            <button
-              type="button"
-              className="header__button"
-              onClick={handleAddCard}
-            >
-              + Add Clothes
-            </button>
+{isLoggedIn ? (
+  <>
+    <button
+      type="button"
+      className="header__button"
+      onClick={handleAddCard}
+    >
+      + Add Clothes
+    </button>
 
-            <Link
-              to="/profile"
-              className="header__details-mobile header__profile-link"
-            >
-              <p className="header__name">Terrence Tegegne</p>
-              <img
-                src={avatar}
-                alt="profile picture"
-                className="header__avatar"
-              />
-            </Link>
+    <Link
+      to="/profile"
+      className="header__details-mobile header__profile-link"
+      onClick={toggleMobileMenu}
+    >
+      <p className="header__name">{name}</p>
+
+      {avatarUrl ? (
+        <img src={avatarUrl} alt="profile" className="header__avatar" />
+      ) : (
+        <div className="header__avatar-placeholder">{firstLetter}</div>
+      )}
+    </Link>
+  </>
+) : (
+  <div className="header__auth header__auth_mobile">
+    <button
+      type="button"
+      className="header__auth-button"
+      onClick={() => {
+        toggleMobileMenu();
+        onRegisterClick();
+      }}
+    >
+      Sign up
+    </button>
+
+    <button
+      type="button"
+      className="header__auth-button"
+      onClick={() => {
+        toggleMobileMenu();
+        onLoginClick();
+      }}
+    >
+      Log in
+    </button>
+  </div>
+)}
           </div>
         )}
       </div>

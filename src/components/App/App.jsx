@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
 import Header from "../Header/Header";
 import Main from "../Main/Main";
@@ -11,11 +12,16 @@ import Profile from "../Profile/Profile";
 import AddItemModal from "../AddItemModal/AddItemModal";
 import ItemModal from "../ItemModal/ItemModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
+import LoginModal from "../LoginModal/LoginModal";
+import RegisterModal from "../RegisterModal/RegisterModal";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 import { getItems, addItem, deleteItem } from "../../utils/api";
 import { location, apiKey } from "../../utils/constants";
+import { authorize, register, checkToken } from "../../utils/auth";
 import "./App.css";
+
+
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -29,6 +35,68 @@ function App() {
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [isMobileMenuOpened, setIsMobileMenuOpened] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState({});
+  const navigate = useNavigate();
+
+  useEffect(() => {
+  const token = localStorage.getItem("jwt");
+  if (!token) return;
+
+
+
+  checkToken(token)
+    .then((userData) => {
+      setCurrentUser(userData);
+      setIsLoggedIn(true);
+    })
+    .catch((err) => {
+      console.log(err);
+      localStorage.removeItem("jwt");
+      setIsLoggedIn(false);
+      setCurrentUser({});
+    });
+}, []);
+
+  const handleRegister = ({ name, avatar, email, password }) => {
+  register({ name, avatar, email, password })
+    .then(() => {
+      // auto-login after successful registration
+      return authorize({ email, password });
+    })
+    .then((res) => {
+      localStorage.setItem("jwt", res.token);
+      setIsLoggedIn(true);
+      return checkToken(res.token);
+    })
+    .then((userData) => {
+      setCurrentUser(userData);
+      handleModalClose();
+    })
+    .catch(console.error);
+  };
+
+  const handleLogin = ({ email, password }) => {
+    authorize({ email, password })
+      .then((res) => {
+        localStorage.setItem("jwt", res.token);
+        setIsLoggedIn(true);
+        return checkToken(res.token);
+      })
+      .then((userData) => {
+       setCurrentUser(userData);
+       handleModalClose();
+      })
+      .catch(console.error);
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setIsLoggedIn(false);
+    setCurrentUser({});
+    setActiveModal("");
+    navigate("/");
+  };
 
   const handleToggleSwitchChange = () => {
     setCurrentTemperatureUnit((prev) => (prev === "F" ? "C" : "F"));
@@ -39,7 +107,13 @@ function App() {
     setActiveModal("item-modal");
   };
 
-  const handleAddCard = () => setActiveModal("add-garment");
+  const handleAddCard = () => {
+    if (!isLoggedIn) {
+     setActiveModal("login");
+      return;
+    }
+    setActiveModal("add-garment");
+  };
 
   const handleModalClose = () => {
     setActiveModal("");
@@ -61,26 +135,30 @@ function App() {
     getItems().then(setClothingItems).catch(console.error);
   }, []);
 
-  const handleAddItem = (item, resetForm) => {
-    addItem(item)
-      .then((newItem) => {
-        setClothingItems((prev) => [newItem, ...prev]);
-        resetForm();
-        handleModalClose();
-      })
-      .catch(console.error);
-  };
+const handleAddItem = (item, resetForm) => {
+  const token = localStorage.getItem("jwt");
 
-  const handleDeleteItem = (item) => {
-    if (item == null || item._id == null) return;
+  addItem(item, token)
+    .then((newItem) => {
+      setClothingItems((prev) => [newItem, ...prev]);
+      resetForm();
+      handleModalClose();
+    })
+    .catch(console.error);
+};
 
-    deleteItem(item._id)
-      .then(() => {
-        setClothingItems((prev) => prev.filter((i) => i._id !== item._id));
-        handleModalClose();
-      })
-      .catch(console.error);
-  };
+const handleDeleteItem = (item) => {
+  if (item == null || item._id == null) return;
+
+  const token = localStorage.getItem("jwt");
+
+  deleteItem(item._id, token)
+    .then(() => {
+      setClothingItems((prev) => prev.filter((i) => i._id !== item._id));
+      handleModalClose();
+    })
+    .catch(console.error);
+};
 
   useEffect(() => {
     if (!activeModal) return;
@@ -115,6 +193,10 @@ function App() {
             handleAddCard={handleAddCard}
             toggleMobileMenu={() => setIsMobileMenuOpened((p) => !p)}
             isMobileMenuOpened={isMobileMenuOpened}
+            isLoggedIn={isLoggedIn}
+            currentUser={currentUser}
+            onLoginClick={() => setActiveModal("login")}
+            onRegisterClick={() => setActiveModal("register")}
           />
 
           <Routes>
@@ -131,11 +213,15 @@ function App() {
             <Route
               path="/profile"
               element={
+                <ProtectedRoute isLoggedIn={isLoggedIn}>
                 <Profile
                   clothingItems={clothingItems}
                   handleAddCard={handleAddCard}
                   handleCardClick={handleCardClick}
+                  currentUser={currentUser}
+                  onSignOut={handleSignOut}
                 />
+                </ProtectedRoute>
               }
             />
           </Routes>
@@ -162,6 +248,19 @@ function App() {
           onClose={handleModalClose}
           onCardDelete={handleDeleteItem}
         />
+
+        <LoginModal
+          activeModal={activeModal}
+          handleModalClose={handleModalClose}
+          onLogin={handleLogin}
+        />
+
+        <RegisterModal
+          activeModal={activeModal}
+          handleModalClose={handleModalClose}
+          onRegister={handleRegister}
+        />
+
       </div>
     </CurrentTemperatureUnitContext.Provider>
   );

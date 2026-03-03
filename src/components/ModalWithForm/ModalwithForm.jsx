@@ -26,7 +26,6 @@ function ModalWithForm({
 
         <form className="form" noValidate onSubmit={onSubmit}>
           {children}
-          {/* why is my button disabled when all field a fille out now */}
           <button type="submit" className="form-modal__smt-btn" disabled={!isValid}>
             {buttonText}
           </button>

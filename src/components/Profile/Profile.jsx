@@ -2,11 +2,12 @@ import SideBar from "../SideBar/SideBar";
 import ClothesSection from "../ClothesSection/ClothesSection";
 import "./profile.css";
 
-function Profile({ clothingItems, handleAddCard, handleCardClick }) {
-  return (
+function Profile({ clothingItems, handleAddCard, handleCardClick, currentUser, onSignOut }) {
+  
+    return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar />
+        <SideBar currentUser={currentUser} onSignOut={onSignOut} />
       </section>
 
       <div className="profile__content">
