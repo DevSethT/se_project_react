@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
@@ -183,6 +184,7 @@ const handleDeleteItem = (item) => {
   }, [activeModal]);
 
   return (
+    <CurrentUserContext.Provider value={currentUser}>
     <CurrentTemperatureUnitContext.Provider
       value={{ currentTemperatureUnit, handleToggleSwitchChange }}
     >
@@ -194,7 +196,6 @@ const handleDeleteItem = (item) => {
             toggleMobileMenu={() => setIsMobileMenuOpened((p) => !p)}
             isMobileMenuOpened={isMobileMenuOpened}
             isLoggedIn={isLoggedIn}
-            currentUser={currentUser}
             onLoginClick={() => setActiveModal("login")}
             onRegisterClick={() => setActiveModal("register")}
           />
@@ -263,6 +264,7 @@ const handleDeleteItem = (item) => {
 
       </div>
     </CurrentTemperatureUnitContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 

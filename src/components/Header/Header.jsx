@@ -1,5 +1,7 @@
 import "./Header.css";
 import logo from "../../assets/logo.svg";
+import { useContext } from "react";
+import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { Link } from "react-router-dom";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
@@ -9,7 +11,6 @@ function Header({
   toggleMobileMenu,
   isMobileMenuOpened,
   isLoggedIn,
-  currentUser,
   onLoginClick,
   onRegisterClick,
 }) {
@@ -17,6 +18,8 @@ function Header({
     month: "long",
     day: "numeric",
   });
+  
+  const currentUser = useContext(CurrentUserContext);
 
   const location = weatherData?.location || "";
   const name = currentUser?.name || "";
