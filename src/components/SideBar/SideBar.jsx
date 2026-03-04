@@ -12,18 +12,21 @@ function SideBar({ onSignOut, onEditProfile, }) {
   return (
     
     <div className="sidebar">
+      <div className="sidebar__user">
     {avatarUrl ? (
       <img
       className="sidebar__avatar"
       src={avatarUrl}
       alt="User avatar"
-    />
+      />
     ) : (
-    <div className="sidebar__avatar-placeholder">
+      <div className="sidebar__avatar-placeholder">
       {firstLetter}
     </div>
     )}
       <p className="sidebar__username">{name}</p>
+    </div>
+        
       <button 
       onClick={onSignOut} 
       className="sidebar__logout-button"

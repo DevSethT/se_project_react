@@ -49,7 +49,7 @@ visibility: visible;
     opacity: 70%;
 }
 
-.form-modal__tittle {
+.form-modal__title {
     font-family: "Cabinet Grotesk Bold", Arial, Helvetica, sans-serif;
         font-size: 16px;
         font-weight: 700;
@@ -87,6 +87,49 @@ visibility: visible;
     background-color: rgba(0, 0, 0, 0.6);
 }
 
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form__fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form__label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: "Cabinet Grotesk", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: black;
+}
+
+.form__input {
+    border: none;
+    border-bottom: 1px solid black;
+    padding: 6px 0;
+    font-family: "Cabinet Grotesk", Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    outline: none;
+}
+
+.form__input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+}
+
+.form__input:focus {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+}
+
 @media screen and (max-width: 755px) {
     .form-modal__container {
         max-width: 319px;
@@ -94,7 +137,7 @@ visibility: visible;
         border-radius: 20px;
     }
 
-    .form-modal__close-button {
+    .form-modal__close-btn {
         background-image: url(../../assets/closebuttonmobile.svg);
         background-color: transparent;
         top: 3%;
@@ -106,7 +149,7 @@ visibility: visible;
         font-size: 20px;
     }
 
-    .form-modal__button {
+    .form-modal__smt-btn {
         width: 319px;
     }
 }

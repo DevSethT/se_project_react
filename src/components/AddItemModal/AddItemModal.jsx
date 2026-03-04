@@ -28,6 +28,7 @@ function AddItemModal({ isOpen, onAddItem, onCloseModal}) {
       handleModalClose={onCloseModal}
       onSubmit={handleSubmit}
       isValid={isValid}
+      
     >
       <div className="form__inputs">
 

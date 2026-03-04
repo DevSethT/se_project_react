@@ -15,11 +15,11 @@ function Main({ weatherData, handleCardClick, clothingItems, oncardLike }) {
   return (
     <main className="main">
       <WeatherCard weatherData={weatherData} />
-      <section className="cards">
         <p className="cards__text">
           Today is {displayTemp}°{currentTemperatureUnit} / You may want to
           wear:
         </p>
+      <section className="cards">
         <ul className="cards__list">
           {clothingItems
             .filter((item) => item.weather === weatherData.type)
