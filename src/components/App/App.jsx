@@ -18,7 +18,8 @@ import RegisterModal from "../RegisterModal/RegisterModal";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { getItems, addItem, deleteItem, addCardLike, removeCardLike, updateUser } from "../../utils/api";
+
+import * as api from "../../utils/api";
 import { location, apiKey } from "../../utils/constants";
 import { authorize, register, checkToken } from "../../utils/auth";
 import "./App.css";
@@ -131,7 +132,7 @@ function App() {
   const token = localStorage.getItem("jwt");
   if (!token) return;
 
-  const request = !isLiked ? addCardLike(id, token) : removeCardLike(id, token);
+  const request = !isLiked ? api.addCardLike(id, token) : api.removeCardLike(id, token);
 
   request
     .then((updatedCard) => {
@@ -146,7 +147,7 @@ const handleUpdateUser = ({ name, avatar }) => {
   const token = localStorage.getItem("jwt");
   if (!token) return;
 
-  updateUser({ name, avatar }, token)
+  api.updateUser({ name, avatar }, token)
     .then((updatedUser) => {
       setCurrentUser(updatedUser);
       handleModalClose();
@@ -161,13 +162,13 @@ const handleUpdateUser = ({ name, avatar }) => {
   }, []);
 
   useEffect(() => {
-    getItems().then(setClothingItems).catch(console.error);
+    api.getItems().then(setClothingItems).catch(console.error);
   }, []);
 
 const handleAddItem = (item, resetForm) => {
   const token = localStorage.getItem("jwt");
 
-  addItem(item, token)
+  api.addItem(item, token)
     .then((newItem) => {
       setClothingItems((prev) => [newItem, ...prev]);
       resetForm();
@@ -181,7 +182,7 @@ const handleDeleteItem = (item) => {
 
   const token = localStorage.getItem("jwt");
 
-  deleteItem(item._id, token)
+  api.deleteItem(item._id, token)
     .then(() => {
       setClothingItems((prev) => prev.filter((i) => i._id !== item._id));
       handleModalClose();
@@ -238,7 +239,7 @@ const handleDeleteItem = (item) => {
                   weatherData={weatherData}
                   clothingItems={clothingItems}
                   handleCardClick={handleCardClick}
-                  handleCardLike={handleCardLike}
+                  oncardLike={handleCardLike}
                 />
               }
             />
