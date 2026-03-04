@@ -15,9 +15,10 @@ import ItemModal from "../ItemModal/ItemModal";
 import DeleteModal from "../DeleteModal/DeleteModal";
 import LoginModal from "../LoginModal/LoginModal";
 import RegisterModal from "../RegisterModal/RegisterModal";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
-import { getItems, addItem, deleteItem } from "../../utils/api";
+import { getItems, addItem, deleteItem, addCardLike, removeCardLike, updateUser } from "../../utils/api";
 import { location, apiKey } from "../../utils/constants";
 import { authorize, register, checkToken } from "../../utils/auth";
 import "./App.css";
@@ -125,6 +126,33 @@ function App() {
     setSelectedCard(card);
     setActiveModal("delete-modal");
   };
+  
+  const handleCardLike = ({ id, isLiked }) => {
+  const token = localStorage.getItem("jwt");
+  if (!token) return;
+
+  const request = !isLiked ? addCardLike(id, token) : removeCardLike(id, token);
+
+  request
+    .then((updatedCard) => {
+      setClothingItems((cards) =>
+        cards.map((item) => (item._id === id ? updatedCard : item))
+      );
+    })
+    .catch(console.error);
+};
+
+const handleUpdateUser = ({ name, avatar }) => {
+  const token = localStorage.getItem("jwt");
+  if (!token) return;
+
+  updateUser({ name, avatar }, token)
+    .then((updatedUser) => {
+      setCurrentUser(updatedUser);
+      handleModalClose();
+    })
+    .catch(console.error);
+};
 
   useEffect(() => {
     getWeather(location, apiKey)
@@ -160,6 +188,8 @@ const handleDeleteItem = (item) => {
     })
     .catch(console.error);
 };
+
+
 
   useEffect(() => {
     if (!activeModal) return;
@@ -208,6 +238,7 @@ const handleDeleteItem = (item) => {
                   weatherData={weatherData}
                   clothingItems={clothingItems}
                   handleCardClick={handleCardClick}
+                  handleCardLike={handleCardLike}
                 />
               }
             />
@@ -221,6 +252,7 @@ const handleDeleteItem = (item) => {
                   handleCardClick={handleCardClick}
                   currentUser={currentUser}
                   onSignOut={handleSignOut}
+                  onEditProfile={() => setActiveModal("edit-profile")}
                 />
                 </ProtectedRoute>
               }
@@ -260,6 +292,11 @@ const handleDeleteItem = (item) => {
           activeModal={activeModal}
           handleModalClose={handleModalClose}
           onRegister={handleRegister}
+        />
+        <EditProfileModal
+          activeModal={activeModal}
+          handleModalClose={handleModalClose}
+          onUpdateUser={handleUpdateUser}
         />
 
       </div>

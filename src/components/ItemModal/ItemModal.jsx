@@ -5,8 +5,11 @@ function ItemModal({
   selectedCard,
   handleModalClose,
   onDeleteClick,
-}) {
+}){
   if (activeModal !== "item-modal") return null;
+
+  const currentUser = useContext(CurrentUserContext);
+  const isOwn = selectedCard?.owner === currentUser?._id;
 
   return (
     <div className="item-modal modal-overlay item-modal__is-opened">
@@ -28,6 +31,7 @@ function ItemModal({
               Weather: {selectedCard.weather}
             </p>
           </div>
+          {isOwn && (
           <button
             type="button"
             className="item-modal__delete-btn"
@@ -35,6 +39,7 @@ function ItemModal({
           >
             Delete item
           </button>
+          )}
         </div>
       </div>
     </div>

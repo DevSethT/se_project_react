@@ -22,3 +22,25 @@ export const deleteItem = (id, token) =>
       authorization: `Bearer ${token}`,
     },
   }).then(checkResponse);
+
+  export const addCardLike = (id, token) =>
+  fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "PUT",
+    headers: { authorization: `Bearer ${token}` },
+  }).then(checkResponse);
+
+export const removeCardLike = (id, token) =>
+  fetch(`${baseUrl}/items/${id}/likes`, {
+    method: "DELETE",
+    headers: { authorization: `Bearer ${token}` },
+  }).then(checkResponse);
+
+  export const updateUser = ({ name, avatar }, token) =>
+  fetch(`${baseUrl}/users/me`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ name, avatar }),
+  }).then(checkResponse);

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 
-function SideBar({ onSignOut }) {
+function SideBar({ onSignOut, onEditProfile, }) {
   const currentUser = useContext(CurrentUserContext);
   
   const name = currentUser?.name || "";
@@ -30,6 +30,14 @@ function SideBar({ onSignOut }) {
       type="button"
       >
       Log out
+      </button>
+
+      <button 
+      onClick={onEditProfile} 
+      className="sidebar__edit-profile-button"
+      type="button"
+      >
+      Edit profile
       </button>
     </div>
     
