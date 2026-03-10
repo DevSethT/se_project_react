@@ -2,13 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import ModalWithForm from "../ModalWithForm/ModalwithForm";
 
-function EditProfileModal({ activeModal, handleModalClose, onUpdateUser }) {
+function EditProfileModal({ isOpen, handleModalClose, onUpdateUser }) {
   const currentUser = useContext(CurrentUserContext);
 
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
-
-  const isOpen = activeModal === "edit-profile";
 
   useEffect(() => {
     if (!isOpen) return;

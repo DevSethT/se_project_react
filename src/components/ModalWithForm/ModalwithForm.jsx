@@ -9,6 +9,7 @@ function ModalWithForm({
   handleModalClose,
   onSubmit,
   isValid,
+  secondaryButton,
 }) {
   return (
     <div
@@ -26,9 +27,14 @@ function ModalWithForm({
 
         <form className="form" noValidate onSubmit={onSubmit}>
           {children}
-          <button type="submit" className="form-modal__smt-btn" disabled={!isValid}>
+          <button
+            type="submit"
+            className="form-modal__smt-btn"
+            disabled={!isValid}
+          >
             {buttonText}
           </button>
+          {secondaryButton}
         </form>
       </div>
     </div>

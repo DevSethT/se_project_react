@@ -1,11 +1,9 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalwithForm";
 
-function LoginModal({ activeModal, handleModalClose, onLogin }) {
+function LoginModal({ isOpen, handleModalClose, onLogin, handleNewUserModal }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const isOpen = activeModal === "login";
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,6 +22,15 @@ function LoginModal({ activeModal, handleModalClose, onLogin }) {
       handleModalClose={handleModalClose}
       onSubmit={handleSubmit}
       isValid={isValid}
+      secondaryButton={
+        <button
+          type="button"
+          className="form-modal__secondary-button_registermodal"
+          onClick={handleNewUserModal}
+        >
+          or Log In
+        </button>
+      }
     >
       <label className="form__label">
         Email
@@ -46,10 +53,6 @@ function LoginModal({ activeModal, handleModalClose, onLogin }) {
           required
         />
       </label>
-
-       <a href="/login" className="form-modal__switch-link" onClick={handleModalClose}>
-        or Sign up
-      </a>
     </ModalWithForm>
   );
 }
