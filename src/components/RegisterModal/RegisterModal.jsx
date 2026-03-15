@@ -1,12 +1,7 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalwithForm";
 
-function RegisterModal({
-  isOpen,
-  handleModalClose,
-  onRegister,
-  handleLogInmodal,
-}) {
+function RegisterModal({ isOpen, handleModalClose, onRegister, onSwitch }) {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
   const [email, setEmail] = useState("");
@@ -22,7 +17,7 @@ function RegisterModal({
   return (
     <ModalWithForm
       title="Sign up"
-      buttonText={"sign up"}
+      buttonText="Sign up"
       isOpen={isOpen}
       handleModalClose={handleModalClose}
       onSubmit={handleSubmit}
@@ -31,7 +26,7 @@ function RegisterModal({
         <button
           type="button"
           className="form-modal__secondary-button_registermodal"
-          onClick={handleLogInmodal}
+          onClick={onSwitch}
         >
           or Log In
         </button>

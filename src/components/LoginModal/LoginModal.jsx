@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalwithForm";
 
-function LoginModal({ isOpen, handleModalClose, onLogin, handleNewUserModal }) {
+function LoginModal({ isOpen, handleModalClose, onLogin, onSignUp }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -10,7 +10,6 @@ function LoginModal({ isOpen, handleModalClose, onLogin, handleNewUserModal }) {
     onLogin({ email, password });
   };
 
-  // simple validity for now
   const isValid = email.trim() && password.trim();
 
   return (
@@ -26,9 +25,9 @@ function LoginModal({ isOpen, handleModalClose, onLogin, handleNewUserModal }) {
         <button
           type="button"
           className="form-modal__secondary-button_registermodal"
-          onClick={handleNewUserModal}
+          onClick={onSignUp}
         >
-          or Log In
+          or Sign Up
         </button>
       }
     >

@@ -27,14 +27,16 @@ function ModalWithForm({
 
         <form className="form" noValidate onSubmit={onSubmit}>
           {children}
-          <button
-            type="submit"
-            className="form-modal__smt-btn"
-            disabled={!isValid}
-          >
-            {buttonText}
-          </button>
-          {secondaryButton}
+          <div className="form-btns">
+            <button
+              type="submit"
+              className="form-modal__smt-btn"
+              disabled={!isValid}
+            >
+              {buttonText}
+            </button>
+            {secondaryButton}
+          </div>
         </form>
       </div>
     </div>
