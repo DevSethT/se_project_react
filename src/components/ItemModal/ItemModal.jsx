@@ -3,7 +3,7 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemModal({ isOpen, selectedCard, handleModalClose, onDeleteClick }) {
-  if (isOpen !== "item-modal") return null;
+  if (!isOpen) return null;
 
   const currentUser = useContext(CurrentUserContext);
   const isOwn = selectedCard?.owner === currentUser?._id;

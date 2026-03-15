@@ -1,7 +1,7 @@
 import "./DeleteModal.css";
 
 function DeleteModal({ isOpen, onCloseModal, onCardDelete, selectedCard }) {
-  if (isOpen !== "delete-modal") return null;
+  if (!isOpen) return null;
 
   return (
     <div className="delete-modal modal-overlay delete-modal__is-opened">

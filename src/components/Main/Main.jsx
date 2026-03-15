@@ -4,7 +4,7 @@ import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnit
 import WeatherCard from "../WeatherCard/WeatherCard";
 import ItemCard from "../ItemCard/ItemCard";
 
-function Main({ weatherData, handleCardClick, clothingItems, oncardLike }) {
+function Main({ weatherData, handleCardClick, clothingItems, onCardLike }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
 
   const tempF = weatherData?.temp?.F; // ✅ capital F
@@ -15,10 +15,9 @@ function Main({ weatherData, handleCardClick, clothingItems, oncardLike }) {
   return (
     <main className="main">
       <WeatherCard weatherData={weatherData} />
-        <p className="cards__text">
-          Today is {displayTemp}°{currentTemperatureUnit} / You may want to
-          wear:
-        </p>
+      <p className="cards__text">
+        Today is {displayTemp}°{currentTemperatureUnit} / You may want to wear:
+      </p>
       <section className="cards">
         <ul className="cards__list">
           {clothingItems
@@ -28,7 +27,7 @@ function Main({ weatherData, handleCardClick, clothingItems, oncardLike }) {
                 key={item._id}
                 item={item}
                 handleCardClick={handleCardClick}
-                onCardLike={oncardLike}
+                onCardLike={onCardLike}
               />
             ))}
         </ul>

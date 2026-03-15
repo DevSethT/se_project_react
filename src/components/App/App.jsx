@@ -247,7 +247,7 @@ function App() {
                     weatherData={weatherData}
                     clothingItems={clothingItems}
                     handleCardClick={handleCardClick}
-                    oncardLike={handleCardLike}
+                    onCardLike={handleCardLike}
                   />
                 }
               />
@@ -262,6 +262,7 @@ function App() {
                       currentUser={currentUser}
                       onSignOut={handleSignOut}
                       onEditProfile={() => setActiveModal("edit-profile")}
+                      onCardLike={handleCardLike}
                     />
                   </ProtectedRoute>
                 }
