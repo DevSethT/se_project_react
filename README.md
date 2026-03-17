@@ -46,3 +46,5 @@ This webpage is connected to the OpenWeatherMap API, allowing the current weathe
 - Recorded overview of project: (To Be Updated)
 
 - [Link to backend](https://github.com/DevSethT/se_project_express)
+
+- [Link to video showing it working](https://youtu.be/Ea6jpcGxqUg)

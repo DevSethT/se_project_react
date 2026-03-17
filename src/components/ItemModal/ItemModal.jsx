@@ -3,9 +3,10 @@ import { useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function ItemModal({ isOpen, selectedCard, handleModalClose, onDeleteClick }) {
-  if (!isOpen) return null;
-
   const currentUser = useContext(CurrentUserContext);
+
+  if (!isOpen || !selectedCard) return null;
+
   const isOwn = selectedCard?.owner === currentUser?._id;
 
   return (

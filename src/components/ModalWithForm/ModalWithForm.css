@@ -130,6 +130,11 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
 }
 
+.form-modal__secondary-button_registermodal {
+  border: none;
+  background: none;
+}
+
 @media screen and (max-width: 755px) {
   .form-modal__container {
     max-width: 319px;
