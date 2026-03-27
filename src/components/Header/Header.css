@@ -162,6 +162,9 @@
   }
 
   .header__mobile-menu-button {
+    background-position: center;
+    background-color: transparent;
+    background-image: url(../../assets/mobilehamburgermenu.svg);
     display: block;
   }
 

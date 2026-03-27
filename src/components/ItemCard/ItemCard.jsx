@@ -17,20 +17,22 @@ function ItemCard({ item, handleCardClick, onCardLike }) {
 
   return (
     <li className="item-card">
-      <h2 className="item-card__title">{item.name}</h2>
+      <div className="item-card__top">
+        <h2 className="item-card__title">{item.name}</h2>
+        {isLoggedIn && (
+          <button
+            type="button"
+            className={`item-card__like-button ${isLiked ? "item-card__like-button_liked" : ""}`}
+            onClick={handleLike}
+          />
+        )}
+      </div>
       <img
         src={item.imageUrl}
         alt={item.name}
         className="item-card__image"
         onClick={onCardClick}
       />
-      {isLoggedIn && (
-        <button
-          type="button"
-          className={`item-card__like-button ${isLiked ? "item-card__like-button_liked" : ""}`}
-          onClick={handleLike}
-        />
-      )}
     </li>
   );
 }
