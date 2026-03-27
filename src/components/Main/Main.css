@@ -12,6 +12,16 @@
   justify-content: center;
 }
 
+.cards__list {
+  display: flex;
+  flex-flow: wrap;
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+  align-content: center;
+  gap: 20px;
+}
+
 .cards__text {
   margin: 0 0 40px 0;
 }
