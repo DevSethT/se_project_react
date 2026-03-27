@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3001";
+const baseUrl = "https://api.wtwr.teamradicus.com";
 
 export const checkResponse = (res) =>
   res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
@@ -23,7 +23,7 @@ export const deleteItem = (id, token) =>
     },
   }).then(checkResponse);
 
-  export const addCardLike = (id, token) =>
+export const addCardLike = (id, token) =>
   fetch(`${baseUrl}/items/${id}/likes`, {
     method: "PUT",
     headers: { authorization: `Bearer ${token}` },
@@ -35,7 +35,7 @@ export const removeCardLike = (id, token) =>
     headers: { authorization: `Bearer ${token}` },
   }).then(checkResponse);
 
-  export const updateUser = ({ name, avatar }, token) =>
+export const updateUser = ({ name, avatar }, token) =>
   fetch(`${baseUrl}/users/me`, {
     method: "PATCH",
     headers: {
